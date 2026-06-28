@@ -16,6 +16,9 @@ export default function OperatorPage() {
   const [messageInput, setMessageInput] = useState('')
   const [videoUrlInput, setVideoUrlInput] = useState('')
   const [origin, setOrigin] = useState('')
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [volume, setVolume] = useState(0.7)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const presenceChannel = useRef<any>(null)
 
   useEffect(() => {
@@ -60,6 +63,41 @@ export default function OperatorPage() {
     }
   }
 
+  function playSceneAudio(sceneIndex: number) {
+    const scene = scenes[sceneIndex]
+    if (!scene?.audio_url) {
+      audioRef.current?.pause()
+      setIsPlaying(false)
+      return
+    }
+    if (!audioRef.current) {
+      audioRef.current = new Audio()
+      audioRef.current.loop = true
+    }
+    if (audioRef.current.src !== scene.audio_url) {
+      audioRef.current.src = scene.audio_url
+    }
+    audioRef.current.volume = volume
+    audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {})
+  }
+
+  function togglePlay() {
+    if (!audioRef.current) return
+    if (isPlaying) {
+      audioRef.current.pause()
+      setIsPlaying(false)
+    } else {
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {})
+    }
+  }
+
+  function stopAudio() {
+    if (!audioRef.current) return
+    audioRef.current.pause()
+    audioRef.current.currentTime = 0
+    setIsPlaying(false)
+  }
+
   async function triggerAlert() {
     if (!state) return
     await updateShowState({ trigger: 'alert' })
@@ -69,16 +107,19 @@ export default function OperatorPage() {
     if (!state) return
     const next = Math.min(state.scene_index + 1, scenes.length - 1)
     await updateShowState({ scene_index: next, trigger: 'scene_change' })
+    playSceneAudio(next)
   }
 
   async function prevScene() {
     if (!state) return
     const prev = Math.max(state.scene_index - 1, 0)
     await updateShowState({ scene_index: prev, trigger: 'scene_change' })
+    playSceneAudio(prev)
   }
 
   async function goToScene(index: number) {
     await updateShowState({ scene_index: index, trigger: 'scene_change' })
+    playSceneAudio(index)
   }
 
   async function sendMessage() {
@@ -208,6 +249,46 @@ export default function OperatorPage() {
         >
           🎬
         </button>
+      </div>
+
+      {/* Audio */}
+      <div className="border border-white/10 p-3 flex flex-col gap-3">
+        <p className="text-xs text-white/40 tracking-widest">🔊 음향 (오퍼 전용)</p>
+        <div className="flex gap-2">
+          <button
+            onClick={togglePlay}
+            className="flex-1 py-4 text-lg bg-white/5 hover:bg-white/15 border border-white/10 transition-colors"
+          >
+            {isPlaying ? '⏸ 일시정지' : '▶ 재생'}
+          </button>
+          <button
+            onClick={stopAudio}
+            className="px-5 py-4 bg-white/5 hover:bg-white/15 border border-white/10 transition-colors"
+          >
+            ⏹
+          </button>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-white/40">볼륨</span>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={volume}
+            onChange={(e) => {
+              const v = Number(e.target.value)
+              setVolume(v)
+              if (audioRef.current) audioRef.current.volume = v
+            }}
+            className="flex-1 accent-amber-600"
+          />
+          <span className="text-xs text-white/40 w-8">{Math.round(volume * 100)}%</span>
+        </div>
+        {currentScene?.audio_url
+          ? <p className="text-xs text-white/30 truncate">현재 씬 음원 있음</p>
+          : <p className="text-xs text-white/20">현재 씬 음원 없음</p>
+        }
       </div>
 
       {/* QR Code */}

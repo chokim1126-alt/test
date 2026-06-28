@@ -5,6 +5,7 @@ export interface Scene {
   type: SceneType
   background: string
   content: any
+  audio_url?: string  // 오퍼 노트북 스피커 전용 음원
 }
 
 export const scenes: Scene[] = [
@@ -13,12 +14,14 @@ export const scenes: Scene[] = [
     type: 'waiting',
     background: '#0a0a0a',
     content: { blink_text: "37°33′N  126°58′E", blink_color: '#3a3a3a' },
+    audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
   },
   {
     id: 1,
     type: 'alert_text',
     background: '#0d0d0d',
     content: { message: '지도가 도착했습니다.', font_size: 'large', color: '#e8d5b0' },
+    audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
   },
   {
     id: 2,
