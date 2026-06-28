@@ -110,8 +110,10 @@ export default function AudiencePage() {
       key={fadeKey}
       className={`relative w-full h-screen overflow-hidden animate-fade-in ${shaking ? 'animate-shake' : ''}`}
     >
-      {/* Scene */}
-      {renderScene()}
+      {/* Scene — 메시지 표시 중에는 숨김 */}
+      <div className={`w-full h-full transition-opacity duration-300 ${message ? 'opacity-0' : 'opacity-100'}`}>
+        {renderScene()}
+      </div>
 
       {/* Video overlay */}
       {videoUrl && <VideoScene videoUrl={videoUrl} />}

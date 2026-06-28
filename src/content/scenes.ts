@@ -35,7 +35,7 @@ export const scenes: Scene[] = [
     type: 'map',
     background: '#110f08',
     content: {
-      image_url: '/images/map_step1.png',
+      image_url: '/images/map_step1.svg',
       caption: '북쪽으로 이동하십시오',
       highlight_point: 1,
     },
@@ -59,7 +59,7 @@ export const scenes: Scene[] = [
     type: 'map',
     background: '#110f08',
     content: {
-      image_url: '/images/map_step2.png',
+      image_url: '/images/map_step2.svg',
       caption: '동쪽 길을 따라가십시오',
       highlight_point: 2,
     },
@@ -94,7 +94,7 @@ export const scenes: Scene[] = [
     type: 'map',
     background: '#110f08',
     content: {
-      image_url: '/images/map_complete.png',
+      image_url: '/images/map_complete.svg',
       caption: '최종 목적지',
       highlight_point: 'all',
     },
