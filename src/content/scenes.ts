@@ -9,103 +9,117 @@ export interface Scene {
 
 export const scenes: Scene[] = [
   {
+    // 씬 0: 집결 대기 — 좌표 깜박임
     id: 0,
     type: 'waiting',
-    background: '#000000',
+    background: '#0a0a0a',
     content: {
-      blink_text: "37°33'N  126°58'E",
-      blink_color: '#444444',
+      blink_text: "37°33′N  126°58′E",
+      blink_color: '#3a3a3a',
     },
   },
   {
+    // 씬 1: 지도 수신 알림
     id: 1,
     type: 'alert_text',
     background: '#0d0d0d',
     content: {
-      message: '누군가의 기억이 담긴 지도가\n당신의 폰에 도착했습니다.',
+      message: '지도가 도착했습니다.',
       font_size: 'large',
       color: '#e8d5b0',
     },
   },
   {
+    // 씬 2: 첫 번째 지점 — 지도 + 방향 안내
     id: 2,
     type: 'map',
-    background: '#1a1208',
+    background: '#110f08',
     content: {
       image_url: '/images/map_step1.png',
-      caption: '첫 번째 기억이 있는 곳으로',
+      caption: '북쪽으로 이동하십시오',
       highlight_point: 1,
     },
   },
   {
+    // 씬 3: 첫 번째 지점 도착
     id: 3,
     type: 'text',
-    background: '#0d0d1a',
-    content: {
-      title: '기억의 조각 #1',
-      body: '그날의 공기는 유난히 차가웠다.\n손끝이 닿으면 무언가 기억날 것 같았는데,\n끝내 잡히지 않았다.',
-      color: '#c8d4e8',
-    },
-  },
-  {
-    id: 4,
-    type: 'map',
-    background: '#1a1208',
-    content: {
-      image_url: '/images/map_step2.png',
-      caption: '두 번째 기억이 있는 곳으로',
-      highlight_point: 2,
-    },
-  },
-  {
-    id: 5,
-    type: 'text',
-    background: '#1a0d0d',
-    content: {
-      title: '기억의 조각 #2',
-      body: '어떤 목소리는 사라지지 않는다.\n들리지 않아도, 여전히 울린다.\n당신도 알고 있을 것이다.',
-      color: '#e8c8c8',
-    },
-  },
-  {
-    id: 6,
-    type: 'alert_text',
     background: '#0d0d0d',
     content: {
-      message: '마지막 기억이\n깨어납니다.',
-      font_size: 'xlarge',
-      color: '#ffffff',
-    },
-  },
-  {
-    id: 7,
-    type: 'map',
-    background: '#1a1208',
-    content: {
-      image_url: '/images/map_complete.png',
-      caption: '모든 기억이 연결되었습니다.',
-      highlight_point: 'all',
-    },
-  },
-  {
-    id: 8,
-    type: 'text',
-    background: '#000000',
-    content: {
-      title: null,
-      body: '당신이 찾은 것은,\n\n기억입니다.',
+      title: '지점 1 / 3',
+      body: '여기입니다.',
       color: '#e8d5b0',
       font_size: 'xlarge',
       align: 'center',
     },
   },
   {
+    // 씬 4: 두 번째 지점 — 지도 + 방향 안내
+    id: 4,
+    type: 'map',
+    background: '#110f08',
+    content: {
+      image_url: '/images/map_step2.png',
+      caption: '동쪽 길을 따라가십시오',
+      highlight_point: 2,
+    },
+  },
+  {
+    // 씬 5: 두 번째 지점 도착
+    id: 5,
+    type: 'text',
+    background: '#0d0d0d',
+    content: {
+      title: '지점 2 / 3',
+      body: '여기입니다.',
+      color: '#e8d5b0',
+      font_size: 'xlarge',
+      align: 'center',
+    },
+  },
+  {
+    // 씬 6: 마지막 지점 접근 — 진동 알림
+    id: 6,
+    type: 'alert_text',
+    background: '#0d0d0d',
+    content: {
+      message: '목적지가\n가까워지고 있습니다.',
+      font_size: 'large',
+      color: '#c8b97a',
+    },
+  },
+  {
+    // 씬 7: 세 번째 지점 — 완성된 지도
+    id: 7,
+    type: 'map',
+    background: '#110f08',
+    content: {
+      image_url: '/images/map_complete.png',
+      caption: '최종 목적지',
+      highlight_point: 'all',
+    },
+  },
+  {
+    // 씬 8: 도착
+    id: 8,
+    type: 'text',
+    background: '#0a0a0a',
+    content: {
+      title: null,
+      body: '도착했습니다.',
+      color: '#e8d5b0',
+      font_size: 'xlarge',
+      align: 'center',
+    },
+  },
+  {
+    // 씬 9: 종료 대기
     id: 9,
     type: 'waiting',
     background: '#000000',
     content: {
       blink_text: '·',
-      blink_color: '#888888',
+      blink_color: '#555555',
     },
   },
 ]
