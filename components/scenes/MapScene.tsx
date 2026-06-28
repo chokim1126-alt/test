@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Scene } from '@/src/content/scenes'
 
 export default function MapScene({ scene }: { scene: Scene }) {
@@ -11,27 +10,15 @@ export default function MapScene({ scene }: { scene: Scene }) {
       className="flex flex-col items-center justify-center h-full w-full px-6 animate-fade-in"
       style={{ background: scene.background }}
     >
-      <div className="relative w-full max-w-sm aspect-square mb-6">
-        <Image
+      <div className="w-full max-w-sm aspect-square mb-6">
+        <img
           src={image_url}
           alt="지도"
-          fill
-          className="object-contain"
-          style={{ filter: 'sepia(60%) brightness(0.85)' }}
-          onError={(e) => {
-            // fallback for missing map images during dev
-            (e.target as HTMLImageElement).style.display = 'none'
-          }}
+          className="w-full h-full object-contain"
+          style={{ filter: 'sepia(40%) brightness(0.9)' }}
         />
-        {/* Fallback placeholder when image is missing */}
-        <div
-          className="absolute inset-0 border border-amber-900/30 rounded flex items-center justify-center"
-          style={{ background: 'rgba(139,90,43,0.1)' }}
-        >
-          <span className="text-amber-900/40 text-sm font-mono">지도</span>
-        </div>
       </div>
-      <p className="text-cream/70 text-sm tracking-widest text-center font-serif">
+      <p className="text-sm tracking-widest text-center font-serif" style={{ color: '#e8d5b0', opacity: 0.7 }}>
         {caption}
       </p>
     </div>
